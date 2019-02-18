@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+option java_package = "com.bizdirect.proto.services";
+
+import "bizdirect-cart-messages.proto";
+import "bizdirect-order-messages.proto";
+
+service BizdirectCartService {
+
+        rpc CreateCart (CreateCartRequest) returns (CreateCartResponse);
+
+        rpc AddItem (AddItemRequest) returns (AddItemResponse);
+
+        rpc DeleteItem (DeleteItemRequest) returns (DeleteItemResponse);
+
+        rpc AddQuantity (AddQuantityRequest) returns (AddQuantityResponse);
+
+        rpc DeleteQuantity (DeleteQuantityRequest) returns (DeleteQuantityResponse);
+
+        rpc GetCart (GetCartRequest) returns (GetCartResponse);
+
+        rpc GetCartOfUser (GetCartOfUserRequest) returns (GetCartOfUserResponse);
+
+        rpc CreateOrderRequest (CreateOrderRedirectRequest) returns (CreateOrderRedirectResponse);
+
+        rpc GetCartState (GetCartStateRequest) returns (GetCartStateResponse);
+
+        rpc DiscardCart (DiscardCartRequest) returns (Empty);
+
+        rpc PostFulfillmentCall (PostFulfillmentRequest) returns (PostFulfillmentResponse);
+
+        rpc UpdateCartStateOnBootStartUp (UpdateCartStateRequest) returns (UpdateCartStateResponse);
+
+        rpc GetCouponDetails (FetchCouponDetailsRequest) returns (FetchCouponDetailsResponse);
+
+        rpc PaymentManuallyDeclined (PaymentManuallyDeclinedRequest) returns (Empty);
+
+        rpc GetUserTransactionDetails (CartUserTransactionDetailsRequest) returns (CartUserTransactionDetailsResponse);
+
+        rpc GetAggregatedMetaData (AggregatedMetaDataRequest) returns (AggregatedMetaDataResponse);
+
+
+}

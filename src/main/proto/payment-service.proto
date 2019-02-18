@@ -1,0 +1,16 @@
+syntax = "proto3";
+option java_package = "com.bizdirect.proto.services";
+import "payment-grpc-messages.proto";
+import "bizdirect-cart-messages.proto";
+service PaymentGrpcService {
+
+    rpc initiatePayment (InitiatePaymentRequest) returns (InitiatePaymentResponse);
+
+    rpc initiateRefund (InitiateRefundRequest) returns (InitiateRefundResponse);
+
+    rpc paymentDeclined(PaymentManuallyDeclinedRequest) returns (PaymentManuallyDeclinedResponse);
+
+    rpc initiatePaymentModeChange (InitiatePaymentRequest) returns (InitiatePaymentResponse);
+
+    rpc getPaymentModeAndAmount (OrderIdModeRequest) returns (OrderIdModeResponse);
+}

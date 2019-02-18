@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_package = "com.bizdirect.proto.messages";
+
+
+enum LoyaltyMetaDataConstants {
+    LOYALTY_AMOUNT = 0;
+    BENEFIT_SOURCE = 1;
+    BENEFIT_TYPE = 2;
+    LOYALTY_TYPE = 3;
+    LOYALTY_COUPON_COUPON_CODE = 4;
+    LOYALTY_WALLET_WALLET_CHARGE = 5;
+}
+
+enum BenefitSourceEnum {
+    SOURCE_PAYMENT = 0;
+    SOURCE_WALLET = 1;
+}
+
+enum LoyaltyBenefitType {
+    BENEFIT_DISCOUNT = 0;
+    BENEFIT_CASHBACK = 1;
+}
+
+enum WalletMetaData{
+    WALLET_AMOUNT = 0;
+}
+
+enum CouponMetaData{
+    COUPON_CODE = 0;
+    COUPON_CASHBACK = 1;
+}

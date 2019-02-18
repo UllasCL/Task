@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/any.proto";
+import "bizdirect-cart-messages.proto";
+
+import "bizdirect-cart-service.proto";
+
+option java_multiple_files = true;
+option java_package = "com.bizdirect.proto.messages";
+
+service CategoryService {
+
+    rpc getAllOrderDetails (CategoryAllOrderDetailsRequest) returns (CategoryAllOrderDetailsResponse);
+
+    rpc getOrderCategoryDataDetails (CategoryDataRequestMessage) returns (CategoryDataResponseMessage);
+
+}
+
+message CategoryAllOrderDetailsRequest {
+
+    repeated string order_id = 1;
+
+}
+
+
+message CategoryAllOrderDetailsResponse {
+
+    repeated CategoryOrderDetailsResponse categoryOrderDetailsResponse = 1;
+
+    StatusMessage status_message = 2;
+}
+
+message CategoryOrderDetailsResponse {
+
+    string order_id = 1;
+
+    map<string, string> category_data = 2;
+
+    StatusMessage status_message = 3;
+
+}
+
+message CategoryDataRequestMessage {
+
+    string order_id = 1;
+
+}
+
+message CategoryDataResponseMessage {
+
+    map<string, google.protobuf.Any> category_data = 1;
+
+    StatusMessage statusMessage = 2;
+
+}

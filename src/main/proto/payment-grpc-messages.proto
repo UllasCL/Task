@@ -1,0 +1,101 @@
+syntax = "proto3";
+option java_package = "com.bizdirect.proto.messages";
+import "bizdirect-cart-common-messages.proto";
+import "bizdirect-cart-messages.proto";
+/**
+Initiate payment request message
+**/
+message InitiatePaymentRequest {
+    string order_uuid = 1;
+    double total_amount = 2;
+    double latitude = 3;
+    double longitude = 4;
+    int32 partner_id = 5;
+    string currency_type = 6;
+    int32 category_id = 7;
+    int32 payment_mode = 8;
+}
+/**
+Initiate payment response message
+**/
+message InitiatePaymentResponse {
+    map<string, string> responseMap = 1;
+    ResponseStatus response = 2;
+}
+/**
+Initiate refund request message
+**/
+message InitiateRefundRequest{
+    string order_uuid = 1;
+    double total_refund_amount = 2;
+    double latitude = 3;
+    double longitude = 4;
+    int32 partner_id = 5;
+    string currency_type = 6;
+    int32 category_id = 7;
+}
+
+
+/**
+Get payment modes and amount for orderId
+**/
+message OrderIdModeRequest {
+    string order_id = 1;
+    repeated PaymentMetaData attributes = 2;
+}
+
+/**
+Get payment modes and amount response.
+**/
+message OrderIdModeResponse {
+    map<string, string> payment_data = 1;
+    ResponseStatus response = 2;
+}
+
+
+/**
+Initiate payment response message
+**/
+message InitiateRefundResponse {
+    map<string, string> responseMap = 1;
+    ResponseStatus response = 2;
+}
+
+//enum PaymentMetaData {
+//    PAYMENT_MODES = 0;
+//    PAYMENT_REFUND_AMOUNT = 1;
+//}
+
+/**
+Payment To Order kafka message
+**/
+message PaymentCallbackMessage {
+
+ enum PaymentsStatus {
+
+     SUCCESS = 0;
+
+     FAILED = 1;
+
+ }
+
+ enum PaymentType {
+
+     PAYMENT = 0;
+
+     REFUND = 1;
+
+ }
+
+ string order_uuid = 1;
+
+ PaymentsStatus payments_status = 2;
+
+ PaymentType payment_type = 3;
+
+ string transaction_id = 4;
+}
+
+message PaymentManuallyDeclinedResponse{
+    ResponseStatus response = 1;
+}

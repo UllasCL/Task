@@ -1,0 +1,269 @@
+syntax = "proto3";
+
+option java_package = "com.bizdirect.orders.proto.messages";
+import "bizdirect-cart-messages.proto";
+import "bizdirect-cart-common-messages.proto";
+
+
+message CreateOrUpdateOrderRequest {
+
+    string device_id = 1;
+
+    int32 partner_id = 2;
+
+    double latitude = 3;
+
+    double longitude = 4;
+
+    string cart_uid = 5;
+
+    repeated CreateOrUpdateOrderItem items = 6;
+
+    int32 provider_id = 7;
+
+    int32 category_id = 8;
+
+    string customer_uid = 9;
+
+    double m_total_amount = 10;
+
+    double m_total_tax = 11;
+
+    double m_total_discount = 12;
+
+    bool isPaymentRequired = 13;
+
+    string currency_type = 14;
+}
+
+message CreateOrUpdateOrderResponse {
+
+       string order_uid = 1;
+
+       map<string, string> responseMap = 2;
+
+       ResponseStatus responseStatus = 3;
+}
+
+message CreateOrUpdateOrderItem {
+
+    string item_id = 1;
+
+    repeated ItemPrice itemValue = 2;
+}
+
+message ItemPrice {
+
+    double m_price = 1;
+
+    double m_tax = 2;
+
+    double m_discount = 3;
+
+    string currency_type = 4;
+}
+
+message OrderStatusRequest {
+
+    string order_id = 1;
+}
+
+message OrderStatusResponse {
+    string order_status = 1;
+
+    int32 category_id = 2;
+
+    string customer_uid = 3;
+
+    int32 partner_id = 4;
+
+    string created_date = 5;
+
+    ResponseStatus responseStatus = 6;
+}
+
+
+message FulfillmentUpdateRequest {
+    oneof request_success_failure {
+        FulfillmentSuccessRequest fulfillmentSuccessRequest = 1;
+        FulfillmentFailedRefundRequest fulfillmentFailedRefundRequest = 2;
+    }
+}
+
+message FulfillmentSuccessRequest {
+    string orderUid = 1;
+    int32 provider_id = 2;
+}
+
+
+message FulfillmentFailedRefundRequest {
+    string orderUid = 1;
+    int32 provider_id = 2;
+    double totalRefundAmount = 3;
+}
+
+message FulfillmentUpdateResponse {
+    oneof response_success_failure {
+        Empty empty = 1;
+        FulfillmentFailedRefundResponse fulfillmentFailedRefundResponse = 2;
+    }
+}
+
+//message Empty {
+//    ResponseStatus response = 1;
+//}
+
+/*FulfillmentFailed Refund response*/
+message FulfillmentFailedRefundResponse {
+    ResponseStatus response = 1;
+    map<string, string> responseMap = 2;
+}
+
+message UserOrderHistoryRequest {
+    string customer_uid = 1;
+
+    int32 category_id = 2;
+
+    int32 page_no = 3;
+
+    int32 limit = 4;
+}
+message UserOrderHistoryResponse {
+    repeated GetOrderResponse get_order_response = 1;
+
+    ResponseStatus responseStatus = 2;
+}
+
+message GetOrderResponse {
+
+    string customer_uid = 1;
+
+    double latitude = 2;
+
+    double longitude = 3;
+
+    string device_id = 4;
+
+    double m_total_amount = 5;
+
+    double m_total_tax = 6;
+
+    double m_total_discount = 7;
+
+    repeated GetOrderItemResponse items = 8;
+
+    string order_uid = 9;
+
+    string cart_uid = 10;
+
+    string currency_type = 11;
+
+    ResponseStatus responseStatus = 12;
+}
+
+message GetOrderItemResponse {
+
+    double m_price = 1;
+
+    double m_tax = 2;
+
+    double m_discount = 3;
+
+    string item_id = 4;
+
+    int32 m_quantity = 5;
+
+    string currency_type = 6;
+
+}
+
+message DiscardOrderRequest {
+
+    string order_id = 1;
+}
+
+message GetOrderRequest {
+    string order_id = 1;
+}
+
+message OrderStateChangeCallBack {
+   string cartUid = 1;
+   string orderUid = 2;
+   string newState = 3;
+}
+
+message OrderCancelRequest {
+
+    string order_id = 1;
+
+    double refund_amount = 2;
+}
+
+message PartialOrderCancelRequest {
+
+    string order_id = 1;
+
+    repeated CancelItem items = 2;
+}
+
+message CancelItem{
+
+    string item_id = 1;
+
+    double refund_amount = 2;
+
+    int32 decrease_quantity = 3;
+}
+
+message OrderCancellationResponse {
+
+    map<string, string> responseMap = 1;
+
+    ResponseStatus responseStatus = 2;
+
+}
+
+message CartSyncRequest {
+
+    string cartUid = 1;
+
+    string status = 2;
+}
+
+
+
+//message PaymentManuallyDeclinedRequest {
+//    map<string, string>  payload = 1;
+//}
+
+
+message PaymentModeChangeResponse {
+
+    map<string, string> responseMap = 1;
+
+    ResponseStatus responseStatus = 2;
+}
+
+message PaymentModeChangeRequest {
+
+    string orderUid = 1;
+
+    PaymentModeInfo paymentModeInfo = 2;
+}
+
+message PaymentModeInfo {
+
+    int32 paymentMode = 1;
+}
+
+message GetCartUidRequest {
+
+    string orderUid = 1;
+}
+
+message GetCartUidResponse {
+
+    string cartUid = 1;
+
+    ResponseStatus responseStatus = 2;
+}

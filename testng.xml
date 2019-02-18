@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suit1" verbose="0" >
+   <!-- <test name="check" >
+        <classes>
+            <class name="com.bizdirect.orders.proto.messages.OrderStateMachine">
+                <methods>
+                    <include name="withOutCartUid"/>-->
+                   <!-- <exclude name="invalidCartUid"/>-->
+               <!-- </methods>
+            </class>
+        </classes>
+    </test>-->
+
+   <test name="Regression1">
+        <classes>
+            <class name="com.bizdirect.orders.proto.messages.KafkaTestCases"/>
+            <class name="com.bizdirect.orders.proto.messages.BackButtonClickEvent"/>
+            <class name="com.bizdirect.orders.proto.messages.CommonServiceRefundStatus"/>
+            <class name="com.bizdirect.orders.proto.messages.CreateOrderNegativeScenario"/>
+            <class name="com.bizdirect.orders.proto.messages.GetOrderMetadata"/>
+            <class name="com.bizdirect.orders.proto.messages.OrderStateMachine"/>
+            <class name="com.bizdirect.orders.proto.messages.OrderStateMachineNegative"/>
+
+        </classes>
+    </test>
+</suite>

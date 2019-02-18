@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+option java_package = "com.bizdirect.proto.messages";
+option java_multiple_files = true;
+
+message ResponseStatus {
+
+    ResponseCode response_code = 1;
+    ResponseCodeCause response_code_cause = 2;
+    string message = 3;
+}
+
+enum ResponseCode {
+    DUMMY_CODE = 0;
+    SUCCESS = 1;
+    FAILED = 2;
+    SERVICE_NOT_AVAILABLE = 3;
+    AUTH_FAIL = 4;
+    VALIDATION_FAILED = 5;
+    NOT_FOUND = 6;
+    CONSTRAINT_VIOLATION = 7;
+    FIELD_MISMATCH = 8;
+}
+
+enum ResponseCodeCause {
+    NO_SPECIFIC_CAUSE = 0;
+    ORDER_CREATION_FAILED = 1;
+    ORDER_CREATION_SUCCESS_PAYMENT_INITIATION_FAILED = 2;
+    REFUND_INITIATED_FAILED = 3;
+}
+
+enum PaymentMetaData {
+    PAYMENT_MODE = 0;
+    PAYMENT_AMOUNT = 1;
+}

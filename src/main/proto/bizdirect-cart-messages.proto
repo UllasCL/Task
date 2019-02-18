@@ -1,0 +1,318 @@
+syntax = "proto3";
+option java_package = "com.bizdirect.proto.messages";
+import "bizdirect-cart-common-messages.proto";
+
+import "google/protobuf/any.proto";
+import "bizdirect-loyalty-commons.proto";
+
+
+//import "bizdirect-order-messages.proto";
+
+/**
+Create Cart Request
+*/
+message CreateCartRequest {
+    UserIdentifier user_identifier = 1;
+    int32 category_id = 2;
+    double latitude = 3;
+    double longitude = 4;
+    int32 provider_id = 5;
+}
+/**
+Create Cart Response
+*/
+message CreateCartResponse {
+    ResponseStatus response = 1;
+    string cart_uid = 2;
+}
+/**
+Add Item Request
+*/
+message AddItemRequest {
+    string cart_uid = 1;
+    PriceDetails item_price_details = 2;
+    string device_id = 3;
+}
+/**
+Add Item Response
+*/
+message AddItemResponse {
+    ResponseStatus response = 1;
+    string cart_item_uid = 2;
+}
+/**
+Add Quantity Request
+*/
+message AddQuantityRequest {
+    string cart_item_uid = 2;
+    string cart_uid = 3;
+}
+
+/**
+Add Quantity Response
+*/
+message AddQuantityResponse {
+    ResponseStatus response = 1;
+    string cart_item_uid = 2;
+}
+/**
+Delete Item Request
+*/
+message DeleteItemRequest {
+    string cart_item_uid = 1;
+    string cart_uid = 2;
+}
+/**
+Delete Item Response
+*/
+message DeleteItemResponse {
+    ResponseStatus response = 1;
+}
+/**
+Delete quantity request
+*/
+message DeleteQuantityRequest {
+    string cartItemUid = 2;
+    string cartUid = 3;
+}
+/**
+Delete quantity response
+*/
+message DeleteQuantityResponse {
+    ResponseStatus response = 1;
+}
+/**
+Get Cart Request
+*/
+message GetCartRequest {
+    string cart_uid = 1;
+    string user_uid = 2;
+}
+/**
+Get Cart Response
+*/
+message GetCartResponse {
+    ResponseStatus response = 1;
+    int32 cart_uid = 2;
+    int32 category_id = 3;
+    int32 partner_id = 4;
+    PriceDetails price_details = 5;
+    string cart_state = 6;
+    repeated CartItem cart_items = 7;
+}
+
+/**
+Get All Carts of category Request
+*/
+message GetCartOfUserRequest {
+    int32 category_id = 1;
+    string user_uid = 2;
+    string device_id = 3;
+}
+
+/**
+Delete quantity response
+*/
+message GetCartOfUserResponse {
+    ResponseStatus response = 1;
+    repeated GetCartResponse items = 2;
+}
+
+/**
+Cart Item
+*/
+message CartItem {
+    string cart_uid = 1;
+    string cart_item_uid = 2;
+    int32 quantity = 3;
+    PriceDetails price_details = 4;
+    string item_state = 5;
+}
+
+
+
+/*
+User Identifier
+*/
+message UserIdentifier {
+    string user_uid = 1;
+    string device_id = 2;
+    int32 partner_id = 3;
+}
+
+
+
+/*
+Price Details
+*/
+message PriceDetails {
+    double price = 1;
+    double tax = 2;
+    double discount = 3;
+    string currency_code = 4;
+}
+
+
+/**
+Category to Cart
+Create Order Request
+*/
+message CreateOrderRedirectRequest {
+    string cart_uid = 1;
+}
+
+
+/**
+Category to Cart
+Create Order Response
+*/
+
+message CreateOrderRedirectResponse {
+    ResponseStatus response = 1;
+    string order_uid = 2;
+    map<string, string> response_map = 3;
+}
+/*request for getting cart status*/
+message GetCartStateRequest {
+    string cart_uid = 2;
+}
+
+/*response for getting cart status*/
+message GetCartStateResponse {
+    ResponseStatus response = 1;
+    string cart_state = 2;
+}
+
+
+/*request for updating cart state on boot startup*/
+message UpdateCartStateRequest {
+    string cart_uid = 1;
+    string payment_status = 2;
+}
+
+
+
+/*response for updating cart state on boot start up*/
+message UpdateCartStateResponse {
+    ResponseStatus response = 1;
+    string cart_uid = 2;
+}
+
+
+/* Clear cart request*/
+message DiscardCartRequest {
+    string cart_uid = 1;
+}
+
+
+/*Sync call to cart from order service*/
+// message CartSyncRequest {
+//     string cartUid = 1;
+//     string status = 2;
+// }
+/*Category informing the post fulfillment status*/
+message PostFulfillmentRequest {
+    string order_uid = 1;
+    FulfillmentStatus fulfillment_status = 2;
+    string description = 3;
+    int32 provider_id = 4;
+}
+enum FulfillmentStatus {
+    FULFILLMENT_SUCCESS = 0;
+    FULFILLMENT_FAILURE = 1;
+}
+message Empty {
+     ResponseStatus response = 1;
+ }
+message FetchCouponDetailsRequest {
+    string order_uid = 1;
+}
+
+message FetchCouponDetailsResponse {
+    ResponseStatus response = 1;
+    double total_order_amount = 2;
+    string coupon_code = 3;
+    string benefit_type = 4;
+    double benefit_amount = 5;
+}
+
+message PaymentManuallyDeclinedRequest {
+    map<string, string>  payload = 1;
+}
+
+
+message CartUserTransactionDetailsRequest {
+
+    string user_id = 1;
+
+    int32 page_no = 2;
+
+    int32 limit = 3;
+
+    int32 category_id = 4;
+}
+
+
+
+message CartUserTransactionDetailsResponse {
+
+    repeated CartTransactionDetails transaction_details = 1;
+
+    ResponseStatus response_status = 2;
+
+    int32 total_transactions = 3;
+
+}
+//message StatusMessage {
+//
+//    string code = 1;
+//
+//    string message = 2;
+//
+//}
+
+message CartTransactionDetails {
+
+    string order_id = 1;
+
+    int32 category_id = 2;
+
+    string state = 3;
+
+    string created_at = 4;
+
+    string updated_at = 5;
+
+    double total_amount = 6;
+
+    string currency_code = 7;
+
+}
+
+message AggregatedMetaDataRequest {
+
+    string order_id = 1;
+
+}
+
+message AggregatedMetaDataResponse {
+
+    map<string, string> aggregated_data = 1;
+
+    ResponseStatus responseStatus = 2;
+
+}
+
+
+message PostFulfillmentResponse {
+    oneof fulfillment_response {
+        Empty empty = 1;
+        PostFulfillmentFailedResponse post_fulfillment_failed_response = 2;
+    }
+}
+
+message PostFulfillmentFailedResponse {
+    ResponseStatus response = 1;
+    map<string, string> response_map = 2;
+}
+

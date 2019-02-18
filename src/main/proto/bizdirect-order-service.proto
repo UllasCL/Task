@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.bizdirect.orders.proto.messages";
+
+import "bizdirect-order-messages.proto";
+import "bizdirect-cart-common-messages.proto";
+//import "bizdirect-cart-service.proto";
+import "bizdirect-cart-messages.proto";
+
+service BizdirectOrderService {
+
+    rpc createOrUpdateOrder(CreateOrUpdateOrderRequest) returns (CreateOrUpdateOrderResponse);
+
+    rpc getOrderStatus(OrderStatusRequest) returns (OrderStatusResponse);
+
+    rpc fulfillmentUpdate(FulfillmentUpdateRequest) returns (FulfillmentUpdateResponse);
+
+    rpc getUserOrderHistory(UserOrderHistoryRequest) returns (UserOrderHistoryResponse);
+
+    rpc discardOrder(DiscardOrderRequest) returns (ResponseStatus);
+
+    rpc getOrder(GetOrderRequest) returns (GetOrderResponse);
+
+    rpc getCartUid(GetCartUidRequest) returns (GetCartUidResponse);
+
+    rpc cancelOrder(OrderCancelRequest) returns (OrderCancellationResponse);
+
+    rpc partialCancelOrder(PartialOrderCancelRequest) returns (OrderCancellationResponse);
+
+    rpc syncStateCart (CartSyncRequest) returns (ResponseStatus);
+
+    rpc paymentManuallyFailed (PaymentManuallyDeclinedRequest) returns (ResponseStatus);
+
+
+     rpc changePaymentMode (PaymentModeChangeRequest) returns (PaymentModeChangeResponse);
+}
